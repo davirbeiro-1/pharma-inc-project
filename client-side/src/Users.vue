@@ -728,16 +728,17 @@ export default {
       } else {
         console.log(this.user);
         this.submitted = true;
+        this.isLoading = true
         const res = await userService.updateUserById(this.user);
-        // this.$toast.open("Usuário atualizado com sucesso!");
-        // const users = await userService.getUsers();
-        // this.users = users;
-        // this.$nextTick(() => {
-        //   this.$refs.modal.hide();
-        // });
+        this.$toast.open("Usuário atualizado com sucesso!");
+        const users = await userService.getUsers();
+        this.users = users;
+        this.isLoading = false
+        this.$nextTick(() => {
+          this.$refs.modal.hide();
+        });
       }
     },
-    async deleteTranscription(transcription) {},
     setFullNameToUsers() {
       this.users.forEach((element) => {
         element.fullName = `${element.name.title} ${element.name.first} ${element.name.last}`;
@@ -807,31 +808,6 @@ export default {
     margin-right: 0;
   }
 
-  .new-transcription-button {
-    width: 160;
-    height: 30px;
-    line-height: 100%;
-    font-size: 14px;
-    color: #333333;
-    background-color: #bee7bd;
-    border: 1px solid #7dd07b;
-    margin-bottom: 20px;
-    text-transform: none;
-    box-shadow: none;
-    justify-content: space-around;
-    align-items: center;
-
-    &:hover {
-      background-color: #b5dcb1;
-      transition: background-color 0.2s linear;
-    }
-
-    img {
-      width: 16px;
-      height: 16px;
-      margin-right: 5px;
-    }
-  }
   .item-table {
     border: none !important;
     background-color: none;
