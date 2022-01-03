@@ -29,7 +29,6 @@ async function getUserById(userId) {
 }
 
 async function updateUserById(user) {
-  console.log(user);
   delete user.fullName;
   try {
     return await axios.put(`http://localhost:3000/v1/users/${user.userId}`, {

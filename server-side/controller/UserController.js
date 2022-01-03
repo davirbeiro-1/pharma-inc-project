@@ -43,7 +43,6 @@ module.exports = class UserController {
 	 updateUserData = async (req, res) => {
 		try {
 			const updateUserParams = { userId: Number(req.params.userId), newData: req.body }
-			console.log(updateUserParams);
 			const updateResult = await userService.updateUserData(updateUserParams);
 			if(!updateResult) throw new Error("Usuário não existe na base de dados.")
 			return res
