@@ -1,0 +1,16 @@
+FROM node:16.9.0-alpine
+LABEL maintainer=@digitro.com.br
+
+WORKDIR /home2/app
+
+COPY . .
+
+RUN yarn global add http-server
+
+RUN yarn install --force
+
+RUN yarn run build
+
+EXPOSE 4013
+
+CMD [ "http-server", "-p 4013", "dist"]
