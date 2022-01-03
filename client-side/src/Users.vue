@@ -676,24 +676,11 @@ export default {
   },
   methods: {
     onFiltered(filteredItems) {
-      console.log('entrando aqui');
       this.totalRows = filteredItems.length;
-      console.log(this.totalRows)
       this.currentPage = 1;
     },
     formatDate(value) {
       return moment(value).format("DD/MM/YYYY");
-    },
-    getFormattedDate(timeStamp) {
-      const date = new Date(timeStamp);
-      const day = date.getDate();
-      const month = date.getMonth() + 1;
-      const year = date.getFullYear();
-      const hours = date.getHours();
-      const minutes = "0" + date.getMinutes();
-      const formattedDate =
-        day + "/" + month + "/" + year + " " + hours + ":" + minutes.substr(-2);
-      return formattedDate;
     },
     openModal(user) {
       this.modalTitle = "Detalhes do Usuário";
@@ -701,8 +688,6 @@ export default {
       this.$refs.modal.show();
     },
     setUserDataInsideModal(user) {
-      console.log(user);
-      console.log(user.location);
       this.user.userId = user.userId;
       this.user.userImage = user.picture.thumbnail;
       this.user.fullName = user.fullName;
@@ -719,14 +704,11 @@ export default {
       this.user.idValue = user.id.value;
     },
     async handleSubmit(e) {
-      console.log("Estou aqui");
       this.submitted = true;
       this.$v.$touch();
       if (this.$v.$invalid) {
-        console.log(this.$v);
         return;
       } else {
-        console.log(this.user);
         this.submitted = true;
         this.isLoading = true
         const res = await userService.updateUserById(this.user);
