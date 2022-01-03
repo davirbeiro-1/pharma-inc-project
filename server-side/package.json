@@ -5,8 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"start": "nodemon ./index.js",
-		"test": "jest --detectOpenHandles --coverage",
-		"prepare": "cd .. && husky install server-side/.husky"
+		"test": "jest --detectOpenHandles --coverage"
 	},
 	"lint-staged": {
 		"**/*": "prettier --write --ignore-unknown",
@@ -34,7 +33,6 @@
 		"@babel/preset-env": "^7.14.1",
 		"eslint": "^7.25.0",
 		"eslint-config-google": "^0.14.0",
-		"husky": "^7.0.0",
 		"jest": "^27.0.6",
 		"lint-staged": "^10.5.4",
 		"prettier": "2.2.1",

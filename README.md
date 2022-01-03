@@ -3,9 +3,9 @@
 Projeto criado com intuito exclusivo de aprendizado. 
 
 Nesse projeto utilizei as seguintes tecnologias:
-* NodeJs com Express;
+* NodeJs com Express
 * MongoDB
-*VueJs
+* VueJs
 
 Nesse projeto é possível verificar a listagem de usuários, e ao selecionar uma determinada ação, é possível editar os dados dos usuários.
 
