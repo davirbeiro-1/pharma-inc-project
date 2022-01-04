@@ -34,6 +34,7 @@ module.exports = class UserService {
 
 	updateUserData = async params => {
 		const { userId, newData } = params
+		console.log(newData);
 		try {
 			return await Users.findOneAndUpdate({ userId: userId }, newData)
 		} catch (error) {

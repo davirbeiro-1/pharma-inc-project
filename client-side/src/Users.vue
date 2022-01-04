@@ -328,18 +328,18 @@
                       >
                         <b-form-input
                           id="user-id-input"
-                          v-model="user.idValue"
+                          v-model="user.id.value"
                           class="border border-dark"
                           :class="{
-                            'is-invalid': submitted && $v.user.idValue.$error,
+                            'is-invalid': submitted && $v.user.id.value.$error,
                           }"
                           :readonly="!editUserState"
                         ></b-form-input>
                         <div
-                          v-show="submitted && $v.user.idValue.$error"
+                          v-show="submitted && $v.user.id.value.$error"
                           class="invalid-feedback"
                         >
-                          <span v-show="!$v.user.idValue.required"
+                          <span v-show="!$v.user.id.value.required"
                             >Identidade é obrigatória.</span
                           >
                         </div>
@@ -621,7 +621,9 @@ export default {
         phone: "",
         nat: "",
         address: "",
-        idValue: "",
+        id: {
+          value: "",
+        },
         userId: "",
         email: "",
         nationality: "",
@@ -701,7 +703,7 @@ export default {
       )}, ${user.location.city}, ${user.location.state} - ${
         user.location.country
       }`;
-      this.user.idValue = user.id.value;
+      this.user.id.value = user.id.value;
     },
     async handleSubmit(e) {
       this.submitted = true;
@@ -710,12 +712,12 @@ export default {
         return;
       } else {
         this.submitted = true;
-        this.isLoading = true
+        this.isLoading = true;
         const res = await userService.updateUserById(this.user);
         this.$toast.open("Usuário atualizado com sucesso!");
-        const users = await userService.getUsers();
-        this.users = users;
-        this.isLoading = false
+        this.users = await userService.getUsers();
+        this.isLoading = false;
+        this.editUserState = false;
         this.$nextTick(() => {
           this.$refs.modal.hide();
         });
@@ -770,7 +772,7 @@ export default {
       email: { required, email },
       birth: { required },
       phone: { required },
-      idValue: { required },
+      id: { value: { required } },
     },
   },
 };

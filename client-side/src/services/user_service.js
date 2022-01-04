@@ -9,9 +9,11 @@ export const userService = {
 async function getUsers() {
   try {
     return await (
-      await axios.get("http://localhost:3000/v1/users", {params:{
-        _limit: 50
-      }})
+      await axios.get("http://localhost:3000/v1/users", {
+        params: {
+          _limit: 50,
+        },
+      })
     ).data;
   } catch (error) {
     console.error(error);
@@ -38,9 +40,12 @@ async function updateUserById(user) {
       phone: user.phone,
       email: user.email,
       nat: user.nationality,
-      dob:{
+      id: {
+        value: user.id.value,
+      },
+      dob: {
         age: calculateAge(user.birth),
-        date: dateString2Date(user.birth)
+        date: dateString2Date(user.birth),
       },
     });
   } catch (error) {
@@ -60,7 +65,7 @@ function calculateAge(dateString) {
 }
 
 function dateString2Date(date) {
-  const splitedDates = date.split("/")
-  const dateInOrder = [splitedDates[1], splitedDates[0], splitedDates[2]]
-  return new Date(dateInOrder)
+  const splitedDates = date.split("/");
+  const dateInOrder = [splitedDates[1], splitedDates[0], splitedDates[2]];
+  return new Date(dateInOrder);
 }
