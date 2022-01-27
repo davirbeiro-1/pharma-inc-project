@@ -1,4 +1,4 @@
-const ServerApi = require('./service/server')
+const ServerApi = require('./server/server')
 
 const start = async () => {
 	const config = require('./config/config.json')

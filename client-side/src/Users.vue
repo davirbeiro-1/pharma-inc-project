@@ -292,6 +292,9 @@
                           <span v-show="!$v.user.birth.required"
                             >Data de nascimento é obrigatória.</span
                           >
+                          <span v-show="!$v.user.birth.dateValidator"
+                            >Formato de data não suportado.</span
+                          >
                         </div>
                       </b-form-group>
                     </b-col>
@@ -303,6 +306,7 @@
                       >
                         <b-form-input
                           id="user-phone-input"
+                          @keypress="isNumber($event)"
                           v-model="user.phone"
                           class="border border-dark"
                           :class="{
@@ -569,8 +573,9 @@ import "vue-loading-overlay/dist/vue-loading.css";
 import moment from "moment";
 import { userService } from "./services/user_service";
 import { helperService } from "./services/helperService";
+import { dateValidator } from "./validators/validators";
 
-import { required, minLength, email } from "vuelidate/lib/validators";
+import { required, minLength, email, numeric } from "vuelidate/lib/validators";
 
 export default {
   name: "list-users",
@@ -681,6 +686,16 @@ export default {
       this.totalRows = filteredItems.length;
       this.currentPage = 1;
     },
+    isNumber(evt) {
+      const charCode = evt.which ? evt.which : evt.keyCode;
+      if (
+        charCode > 31 &&
+        (charCode < 48 || charCode > 57) &&
+        charCode !== 46
+      ) {
+        evt.preventDefault();
+      }
+    },
     formatDate(value) {
       return moment(value).format("DD/MM/YYYY");
     },
@@ -741,7 +756,9 @@ export default {
       this.submitted = false;
     },
     closeModal() {
+      console.log('ChamaNDO PARA FECHAR OI BUTECO');
       this.$refs.modal.hide();
+      this.editUserState = !this.editUserState;
     },
   },
   validations: {
@@ -770,8 +787,8 @@ export default {
         country: { required },
       },
       email: { required, email },
-      birth: { required },
-      phone: { required },
+      birth: { required, dateValidator },
+      phone: { required, numeric },
       id: { value: { required } },
     },
   },
